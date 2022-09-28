@@ -19,10 +19,7 @@ def list_clusters():
     return cluster_id['Clusters'][0]['Id']
 
 def terminate_emr_cluster(cid):
-    res = client.terminate_job_flows(
-        JobFlowIds=[cid]
-    )
-    return res
+    return client.terminate_job_flows(JobFlowIds=[cid])
 
 def handler(event = None, context = None):
     cid = list_clusters()

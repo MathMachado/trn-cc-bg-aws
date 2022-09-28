@@ -25,7 +25,7 @@ class DataTransformation:
             payload: dict = self.__decompress(record.get('data', None))
             logger.info(f'Payload to be transform: {payload}')
 
-            message_type: str = payload.get('messageType', None)
+            message_type: str = payload.get('messageType')
 
             if message_type == 'CONTROL_MESSAGE':
                 output_record = {'recordId': record_id, 'result': DROPPED}
@@ -51,10 +51,9 @@ class DataTransformation:
         return json.loads(gzip.decompress(b64.b64decode(data)))
 
     def __transformation(self, payload: dict) -> str:
-        record = '\r\n'.join(
+        return '\r\n'.join(
             e.pop('message') for e in payload.pop('logEvents', None)
         )
-        return record
 
 
 def lambda_handler(event, context) -> dict:

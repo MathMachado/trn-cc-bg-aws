@@ -80,23 +80,23 @@ def populate_mysql(event, context):
         )
         """)
 
-        for i in range(10000):
+        for _ in range(10000):
             nome         = faker.name()
             customer_id  = faker.random_int()
             sexo         = faker.lexify(text='?', letters='MF')
-            endereco     = faker.address() 
-            telefone     = faker.phone_number() 
-            email        = faker.safe_email() 
-            foto         = faker.image_url() 
-            nascimento   = faker.date_of_birth() 
-            profissao    = faker.job() 
-            provedor     = faker.credit_score_provider() 
+            endereco     = faker.address()
+            telefone     = faker.phone_number()
+            email        = faker.safe_email()
+            foto         = faker.image_url()
+            nascimento   = faker.date_of_birth()
+            profissao    = faker.job()
+            provedor     = faker.credit_score_provider()
             credit_score = faker.credit_score()
             ano_modelo   = faker.vehicle_year_make_model()
-            modelo       = faker.vehicle_make_model() 
+            modelo       = faker.vehicle_make_model()
             fabricante   = faker.vehicle_make()
-            ano_veiculo  = faker.vehicle_year() 
-            categoria    = faker.vehicle_category() 
+            ano_veiculo  = faker.vehicle_year()
+            categoria    = faker.vehicle_category()
             aeroporto    = faker.airport_name()
             linha_aerea  = faker.airline()
             cod_iata     = faker.airport_iata()
@@ -112,7 +112,7 @@ def populate_mysql(event, context):
                 conn.commit()
             except:
                 print(f"Error writing flight row with the following values('{customer_id}', '{aeroporto}', '{linha_aerea}', '{cod_iata}', '{dt_update}')")
-            
+
             try:
                 cur.execute(customers_query)
                 conn.commit()

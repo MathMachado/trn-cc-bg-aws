@@ -29,17 +29,19 @@ def put_items(table, df):
 
 def handler(event = None, context = None):
     df_c = wr.s3.read_parquet(
-            path=f's3://owshq-gold-layer-dev-777696598735/delivery/customers/',
-            path_suffix  =  ".snappy.parquet"
-            )       
+        path='s3://owshq-gold-layer-dev-777696598735/delivery/customers/',
+        path_suffix=".snappy.parquet",
+    )
+
     df_c['nascimento'] = df_c['nascimento'].astype(str)
     df_c = df_c.drop_duplicates(subset = ["id"],keep='last')
     df_c = df_c.dropna()
 
     df_cf = wr.s3.read_parquet(
-            path=f's3://owshq-gold-layer-dev-777696598735/delivery/customer_flights/',
-            path_suffix  =  ".snappy.parquet"
-            )  
+        path='s3://owshq-gold-layer-dev-777696598735/delivery/customer_flights/',
+        path_suffix=".snappy.parquet",
+    )
+
     df_cf['nascimento'] = df_cf['nascimento'].astype(str)
     df_cf = df_cf.dropna(subset=['aeroporto', 'linha_aerea'])
     df_cf = df_cf.drop_duplicates(subset = ["id"],keep='last')
@@ -53,7 +55,7 @@ def handler(event = None, context = None):
                     'AttributeName': 'id',
                     'KeyType': 'HASH'  # Partition key
                 },
-            
+
             ],
             AttributeDefinitions=[
                 {

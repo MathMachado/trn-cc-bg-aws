@@ -124,7 +124,7 @@ class DeltaProcessing:
                     .whenNotMatchedInsertAll(condition = insert_condition) 
                     .execute() 
                 )
-        elif not upsert:
+        else:
             df.write.mode('overwrite').format("delta").save(f"s3a://{self.gold_bucket}/{prefix}")
 
             deltaTable = DeltaTable.forPath(self.spark, f"s3a://{self.gold_bucket}/{prefix}")
